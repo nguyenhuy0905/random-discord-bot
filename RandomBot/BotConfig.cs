@@ -21,7 +21,7 @@ public class BotConfig{
     public string? URL {get; set;}
 
     public static void Deserialize(out BotConfig? config){
-        using StreamReader reader = new StreamReader(@"./bot.config/bot.config.json");
+        using StreamReader reader = new StreamReader(@"./bot.config.json");
         string json = reader.ReadToEnd();
         config = JsonSerializer.Deserialize<BotConfig>(json);
         Console.WriteLine("Finished configuring bot");
