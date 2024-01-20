@@ -80,5 +80,6 @@ chmod +x ./install.sh
 sudo ./install.sh [your-token]
 ```
 - After the installation, go to http://[your-server-ip]:[the-port-you-chose]/api/tunnels
+- You should see your public URL (in the form tcp://[ngrok-io-address]:[port]).
 
 
