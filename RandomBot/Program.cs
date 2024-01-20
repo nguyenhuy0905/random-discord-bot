@@ -93,8 +93,8 @@ public class Program{
         }
 
         /*
-        NOTE: THIS CODE ASSUMES YOU HAVE ONLY 1 NGROK TUNNEL
-        If you have more than 1, please go to your NGROK URL and check to see what tunnel you want your server to connect to, then modify this code
+        NOTE: THIS CODE ASSUMES YOUR TCP TUNNEL IS RUNNING AS THE FIRST NGROK TUNNEL
+        If not, please go to your NGROK URL and check to see what tunnel you want your server to connect to, then modify this code
         EG, the tunnel you want to share is the 2nd one, change the return line to
             return mainNode["tunnels"]![1]!["public_url"]!.ToString()[6..];
         */
