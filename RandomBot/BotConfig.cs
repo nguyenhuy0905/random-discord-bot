@@ -7,7 +7,6 @@ namespace RandomBot;
 /// Contains 3 configs, <code>BotToken</code> <code>ChatGuildID</code> and <code>TextChannelID</code>
 /// </summary>
 public class BotConfig{
-
     [JsonPropertyName("token")]
     public string? Token {get; set;}
 
