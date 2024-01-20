@@ -66,6 +66,7 @@ public class Program{
         await _client.LoginAsync(TokenType.Bot, token);
         await _client.StartAsync();
 
+        await Task.Delay(-1);
     }
 
     /// <summary>

@@ -2,6 +2,6 @@ version: '0.1.0'
 
 services:
   mc-discord-bot:
-    image: huy55465/random-bot-image:0.1.0
+    image: huy55465/random-discord-bot:0.1.0
     volumes:
       - ./bot.config:/bot.config
