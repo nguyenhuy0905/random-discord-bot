@@ -18,9 +18,9 @@ echo "Please write your Ngrok tunnels URL (format: http://<your-host-ip-address>
 
 read url;
 
-echo "Writing your info into ./bot.config.json";
+echo "Writing your info into bot.config.json";
 
-cat > ./bot.config.json <<EDL
+cat > ./bot-config/bot.config.json <<EDL
 {
     "token": "${token}",
     "guild_id": ${guild_id},
