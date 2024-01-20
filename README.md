@@ -13,7 +13,7 @@
 * First, clone this repository, then change directory to the RandomBot folder
 ```
 git clone https://github.com/nguyenhuy0905/random-discord-bot.git
-cd random-bot/RandomBot
+cd random-discord-bot/RandomBot
 ```
 - The RandomBot folder contains a file called ***init_script.sh*** to set up the *bot.config* folder.
 - Create the bot-config folder:
@@ -35,11 +35,11 @@ sudo ./init_script.sh
 > NOTE: Currently, I haven't made the docker image public, so the method using ``` docker compose up -d``` does NOT work.
 - The base docker-compose.yml should be good to go:
 ```
-version: '0.1.0'
+version: '0.1.1'
 
 services:
   mc-discord-bot:
-    image: huy55465/random-discord-bot:0.1.0
+    image: huy55465/random-discord-bot:0.1.1
     volumes:
       - ./bot.config:/bot.config
 
