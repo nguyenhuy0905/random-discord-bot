@@ -29,13 +29,12 @@ public class Program{
 
     public Program()
     {
-        _client = new DiscordSocketClient(); 
+        _client = new DiscordSocketClient();
 
         // configuring the bot
-        BotConfig? cfg = new();
-        BotConfig.Deserialize(out cfg);
+        BotConfig.Deserialize(out BotConfig? cfg);
         // if the user has yet to configure the bot (aka, no ./bot.config/bot.config.json written, or the file was modified)
-        if(cfg == null) throw new NullReferenceException("Error, no config is written yet");
+        if (cfg == null) throw new NullReferenceException("Error, no config is written yet");
 
         // assigning variables
         token = cfg.Token!;
@@ -45,15 +44,22 @@ public class Program{
         
     }
 
-    public static Task Main(string[] args) => new Program().MainAsync();
+    /*
+    Why are there 2 Mains here?
+    Main is accessed by the program;
+    MainAsync is where the actual logic runs.
+    Most, if not all, execution of the Discord.Net library wants to be asynchronous (which, I guess is to not make the bot unresponsive when it is running a task)
+    */
+    public static Task Main() => new Program().MainAsync();
 
     private async Task MainAsync(){
-
-        
         _client.Log += Log;
         // fires the server address once the bot is ready to work
         _client.Ready += () => {
-            _client.GetGuild(guild_id).GetTextChannel(text_channel_id).SendMessageAsync($"### The Minecraft server address is \n ```\n{GetPublicUrl().Result}\n```");
+            // You can change this message from Minecraft server to whatever game server you are currently hosting
+            _client.GetGuild(guild_id).
+                GetTextChannel(text_channel_id).
+                SendMessageAsync($"### The Minecraft server address is \n ```\n{GetPublicUrl().Result}\n```");
             return Task.CompletedTask;
         };
         // login and start the bot
@@ -62,6 +68,9 @@ public class Program{
 
     }
 
+    /// <summary>
+    /// Basically checks how the bot's doing, if it throws any errors...
+    /// </summary>
     private Task Log(LogMessage msg){
         Console.WriteLine(msg);
         return Task.CompletedTask;
@@ -70,19 +79,25 @@ public class Program{
     /// <summary>
     /// Returns the Minecraft server's Ngrok URL
     /// </summary>
-    /// <returns></returns>
     private static async Task<string> GetPublicUrl(){
-        using HttpClient http = new HttpClient();
+        // get the JSON string from the NGROK URL
+        using HttpClient http = new();
         string json;
         try
         {
             json = await http.GetStringAsync(url);
         }
-        catch (System.Exception)
+        catch (Exception)
         {
             return "None";
         }
 
+        /*
+        NOTE: THIS CODE ASSUMES YOU HAVE ONLY 1 NGROK TUNNEL
+        If you have more than 1, please go to your NGROK URL and check to see what tunnel you want your server to connect to, then modify this code
+        EG, the tunnel you want to share is the 2nd one, change the return line to
+            return mainNode["tunnels"]![1]!["public_url"]!.ToString()[6..];
+        */
         JsonNode mainNode = JsonNode.Parse(json)!;
         return mainNode["tunnels"]![0]!["public_url"]!.ToString()[6..];
     }
