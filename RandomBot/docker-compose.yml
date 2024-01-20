@@ -5,4 +5,4 @@ services:
     image: huy55465/random-discord-bot:0.1.1
     volumes:
       - ./bot-config:/RandomBot/bot-config
-      - ./bot-config/bot.config.json:./RandomBot/bot.config.json
+      - ./bot-config/bot.config.json:/RandomBot/bot.config.json
