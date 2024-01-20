@@ -16,6 +16,10 @@ git clone https://github.com/nguyenhuy0905/random-discord-bot.git
 cd random-bot/RandomBot
 ```
 - The RandomBot folder contains a file called ***init_script.sh*** to set up the *bot.config* folder.
+- Create the bot-config folder:
+```
+mkdir bot-config
+```
 - Run the config by:
 ```
 chmod +x ./init_script.sh
