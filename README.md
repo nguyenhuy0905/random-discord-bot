@@ -10,7 +10,45 @@
 - You have Docker installed. Optionally, .NET SDK 7.0
 - Of course, you have set up your Ngrok proxy. [Click here if you haven't](/ngrok-setup.md).
 ### How do I use this?
-* First, clone this repository, then change directory to the RandomBot folder
+### Little to no configuration at all
+> NOTE: if you fall into any of these cases: your Ngrok tunnel you want to share is not the first tunnel, or you don't want the bot to say your server is a Minecraft server, head to [here](#if-you-want-some-extra-configurations).
+- Create some folders:
+```
+touch docker-compose.yml
+mkdir bot-config
+nano docker-compose.yml
+```
+- Add these into the docker-compose file:
+```
+services:
+  mc-discord-bot:
+    image: huy55465/random-discord-bot:0.1.1
+    volumes:
+      - ./bot-config:/RandomBot/bot-config
+      - ./bot-config/bot.config.json:/RandomBot/bot.config.json
+```
+- Save the file then run this command
+```
+nano ./bot-config/bot.config.json
+```
+- Then paste the following into the file:
+```
+{
+  "token": [your-bot-token],
+  "guild_id": [your-guild-id],
+  "text_channel_id": [your-text-channel-id],
+  "url": [your-ngrok-tunnel-url]
+}
+```
+- Your bot token can be obtained into your Discord Developer page. The NGROK tunnel URL is in this format: tcp://[server-ip]:[ngrok-port]/api/tunnels
+- Once you saved the file, run this command:
+```
+docker compose up -d
+```
+- If everything works out correctly, your Discord bot should send a message about the Minecraft server address in the appropriate chat channel.
+
+### If you want some extra configurations
+- First, clone this repository, then change directory to the RandomBot folder
 ```
 git clone https://github.com/nguyenhuy0905/random-discord-bot.git
 cd random-discord-bot/RandomBot
@@ -53,5 +91,10 @@ dotnet run
 
 
 ### Changelog
+- **0.1.1**: Ready for more "public use". I omitted 0.1.0 because that version didn't even start
 - **0.0.2**: Started tweaking to fit a more "general" use case
 - **0.0.1**: Release one for me and my own use case only
+
+### What's next for this project?
+- Maybe just simple as change the mount location. 
+- Add some command utilities, i.e. what version is the server on, what mods the server requires.
